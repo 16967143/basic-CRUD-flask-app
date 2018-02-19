@@ -11,3 +11,11 @@ class DepartmentForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class RoleForm(FlaskForm):
+    """
+    Form for admin to add or edit a role
+    """
+    name = StringField('Name', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Submit')
