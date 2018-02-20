@@ -5,7 +5,7 @@ class Config(object):
     Common configurations
     """
 
-    # Put any configurations here that are common across all environments
+    SQLALCHEMY_TRACK_MODIFICATIONS = False  # suppresses annoying deprecation warning
 
 class DevelopmentConfig(Config):
     """
