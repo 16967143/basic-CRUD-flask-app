@@ -2,19 +2,43 @@
 
 {% extends "base.html" %}
 {% block title %}Dashboard{% endblock %}
+{% block head %}
+<!-- Site Properties -->
+
+<!--<script src="{{ url_for('static', filename='login-page/jquery.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/form.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/transition.js') }}"></script>-->
+
+<style type="text/css">
+    body {
+      background-color: rgb(255, 255, 255);
+      font-family: 'Mandali';
+    }
+
+    button {
+       font-family: 'Mandali';
+
+}
+
+    body > .grid {
+      height: 100%;
+    }
+
+    .ui.large.form{
+    font-size: 1em;
+    }
+
+
+</style>
+{% endblock %}
+
 {% block body %}
-<div class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="intro-message">
-                    <h1>The Dashboard</h1>
-                    <h3>We made it here!</h3>
-                    <hr class="intro-divider">
-                    </ul>
-                </div>
-            </div>
-        </div>
+<div  id="body" class="ui middle aligned center aligned grid"  style="background-color:white; margin-top:0px;">
+    <div class="six wide column" style="margin-top:4em; margin-bottom:8em">
+        <h2 class="ui image header" style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
+        Dashboard page!
+        </h2>
     </div>
 </div>
+
 {% endblock %}

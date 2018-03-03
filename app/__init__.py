@@ -20,7 +20,7 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
 
-    Bootstrap(app)
+    Bootstrap(app)  # seems to be required for routes with prefixes to work...
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_message = "You must be logged in to access this page."

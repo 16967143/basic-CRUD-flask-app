@@ -1,27 +1,120 @@
 <!-- app/templates/admin/employees/employee.html -->
 
-{% import "bootstrap/wtf.html" as wtf %}
 {% extends "base.html" %}
 {% block title %}Assign Employee{% endblock %}
+
+{% block head %}
+<!-- Site Properties -->
+<!--<script src="{{ url_for('static', filename='login-page/jquery.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/form.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/transition.js') }}"></script>-->
+
+<style type="text/css">
+    body, {
+      background-color: rgb(255, 255, 255);
+      font-family: 'Mandali';
+      color: #474747;
+    }
+
+    button {
+       font-family: 'Mandali';
+
+}
+
+    body > .grid {
+      height: 100%;
+    }
+
+    .ui.large.form{
+    font-size: 1em;
+    }
+
+
+</style>
+
+<script type="text/javascript">
+    $(function() {
+	$('.ui.dropdown').dropdown();
+});
+
+
+</script>
+
+{% endblock %}
 {% block body %}
-<div class="content-section">
- <div class="outer">
-    <div class="middle">
-      <div class="inner">
-        <div class="center">
-            <h1> Assign Departments and Roles </h1>
-            <br/>
-            <p>
-                Select a department and role to assign to
-                <span style="color: #aec251;">
-                    {{ employee.first_name }} {{ employee.last_name }}
-                </span>
-            </p>
-            <br/>
-            {{ wtf.quick_form(form) }}
+
+<div class="ui middle aligned center aligned grid" style="background-color:white; margin-top:0px;">
+    <div class="twelve wide column" style="margin-top:4em; margin-bottom:8em">
+        <div class="ui center aligned grid">
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="list" style="margin:auto">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+
+            <div class="twelve wide column">
+                <h2 class="ui header"
+                    style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
+                    Assign departments and roles
+                </h2>
+                <p style="color:#474747">Select a department and role to assign to
+                    <strong>{{ employee.first_name }} {{ employee.last_name }}</strong>
+                </p>
+            </div>
+
+            <div class="twelve wide left aligned column">
+                <form class="ui large form" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="ui stacked segment">
+
+                        <div class="field">
+                            <label>Department</label>
+                            <div class="ui selection dropdown">
+                                <input name="department" type="hidden">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Please select a department</div>
+                                <div class="menu">
+                                    {% if employee.department %}
+                                    {% for department in employee.department %}
+                                    <div class="item" data-value="{{ department }}">{{ department }}</div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Role</label>
+                            <div class="ui selection dropdown">
+                                <input name="role" type="hidden">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Please select a role</div>
+                                <div class="menu">
+                                    {% if employee.role %}
+                                    <div class="item" data-value="{{ role }}">{{ employee.role }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button class="ui fluid medium submit button" type="submit"
+                                style="background-color:#74D7D7; font-family: 'Mandali'">
+                            Assign
+                        </button>
+                    </div>
+                    <div class="ui error message"></div>
+                </form>
+            </div>
+
+
         </div>
-      </div>
     </div>
-  </div>
 </div>
+
 {% endblock %}
