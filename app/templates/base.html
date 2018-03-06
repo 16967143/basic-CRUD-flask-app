@@ -12,7 +12,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Slab"/>
     <link href='https://fonts.googleapis.com/css?family=Mandali' rel='stylesheet'>
-    <!--<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">-->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
     <!-- Include semantic UI -->
@@ -110,7 +109,7 @@
       }
     }
 
-<!--My own additions for the navbar-->
+/*My own additions for the navbar*/
     .ui.grid{
     margin-top:0px;
     margin-bottom:0px;
@@ -145,19 +144,56 @@
       background-color: #74D7D7;
     }
 
-#footer {
-   position:absolute;
-   bottom:0;
-   <!--padding-top:2em;-->
-   <!--padding-bottom:200px;-->
-   margin:0;
-   width:100%;
-   height:150px;   /* Height of the footer */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 0px;  /* Note: this was 0 0 100px before I changed it; might be useful if faced with future footer positioning issues */
+    /* bottom = footer height */
+    padding: 25px;
 }
 
-#body{
-  padding-bottom:150px
+#header-and-body{
+    margin: 0 0 10em;
+    /* bottom = footer height */
+    padding-bottom: 25px;
 }
+
+#footer {
+    background-color: #474747;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 2em;
+    height: 10em;
+    width: 100%;
+}
+
+/*My own additions to get the footer to stick to bottom and not disrupt content*/
+    @media only screen and (max-width: 700px) {
+    #header-and-body{
+        margin: 0 0 30em;
+        /* bottom = footer height */
+        padding-bottom: 25px;
+    }
+
+    #footer {
+        background-color: #474747;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 2em;
+        height: 30em;
+        width: 100%;
+    }
+}
+
+
+
+
+
+
     </style>
 
     <script>
@@ -185,6 +221,14 @@
     })
   ;
 
+
+
+
+
+
+
+
+
     </script>
     {% block head %}
     {% endblock %}
@@ -192,75 +236,16 @@
 </head>
 <body>
 
-<!-- Following Menu -->
-<div class="ui large top fixed hidden menu">
-    <div class="ui container">
-        <img class="ui middle aligned tiny image"
-             src="{{ url_for('static', filename='img/logo/logo-basic-200-x-200.png') }}">
-        <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
-
-        {% if current_user.is_authenticated %}
-        {% if current_user.is_admin %}
-        <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
-        <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
-        <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
-        <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
-        {% else %}
-        <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
-        {% endif %}
-        <div class="right menu">
-            <div class="item">
-                <a><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
-            </div>
-            <div class="item">
-                <a class="ui button" href="{{ url_for('auth.logout') }}">Logout</a>
-            </div>
-        </div>
-        {% else %}
-        <div class="right menu">
-            <div class="item">
-                <a href="{{ url_for('auth.login') }}" class="ui primary inverted button">Login</a>
-            </div>
-            <div class="item">
-                <a href="{{ url_for('auth.register') }}" class="ui primary inverted button">Register</a>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-</div>
-</div>
-
-<!-- Sidebar Menu -->
-<div class="ui vertical inverted sidebar menu">
-    <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
-    {% if current_user.is_authenticated %}
-    {% if current_user.is_admin %}
-    <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
-    <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
-    <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
-    <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
-    {% else %}
-    <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
-    {% endif %}
-    <a class="item" href="{{ url_for('auth.logout') }}">Logout</a>
-    <a class="item"><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
-    {% else %}
-    <a class="item" href="{{ url_for('auth.register') }}">Register</a>
-    <a class="item" href="{{ url_for('auth.login') }}">Login</a>
-    {% endif %}
-</div>
-
-
-<!-- Page Contents -->
 <div class="pusher">
-    <div class="ui inverted vertical masthead center aligned segment" style="padding-top:0px; padding-bottom:0px;">
-
-        <div class="ui container">
-            <div class="ui large secondary inverted pointing menu">
-                <a class="toc item">
-                    <i class="sidebar icon"></i>
-                </a>
+    <div id="header-and-body">
+        <!----------------------------------- Navbar and mobile nav Section ------------------------------------------->
+        <!-- Following Menu -->
+        <div id="following-menu" class="ui large top fixed hidden menu">
+            <div class="ui container">
+                <img class="ui middle aligned tiny image"
+                     src="{{ url_for('static', filename='img/logo/logo-basic-200-x-200.png') }}">
                 <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
+
                 {% if current_user.is_authenticated %}
                 {% if current_user.is_admin %}
                 <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
@@ -275,56 +260,171 @@
                         <a><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
                     </div>
                     <div class="item">
-                        <a class="ui inverted button" href="{{ url_for('auth.logout') }}">Logout</a>
+                        <a class="ui button" href="{{ url_for('auth.logout') }}">Logout</a>
                     </div>
                 </div>
                 {% else %}
                 <div class="right menu">
                     <div class="item">
-                        <a href="{{ url_for('auth.login') }}" class="ui inverted button">Login</a>
+                        <a href="{{ url_for('auth.login') }}" class="ui primary inverted button">Login</a>
                     </div>
                     <div class="item">
-                        <a href="{{ url_for('auth.register') }}" class="ui inverted button">Register</a>
+                        <a href="{{ url_for('auth.register') }}" class="ui primary inverted button">Register</a>
                     </div>
                 </div>
                 {% endif %}
             </div>
         </div>
 
-        {% block body %}
+        <!-- Sidebar Menu -->
+        <div class="ui vertical inverted sidebar menu">
+            <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
+            {% if current_user.is_authenticated %}
+            {% if current_user.is_admin %}
+            <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
+            <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
+            <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
+            <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
+            {% else %}
+            <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
+            {% endif %}
+            <a class="item" href="{{ url_for('auth.logout') }}">Logout</a>
+            <a class="item"><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
+            {% else %}
+            <a class="item" href="{{ url_for('auth.register') }}">Register</a>
+            <a class="item" href="{{ url_for('auth.login') }}">Login</a>
+            {% endif %}
+        </div>
+        <!--------------------------------- End of Navbar and mobile nav Section -------------------------------------->
+
+        <!--------------------------------------- Page Contents Section ----------------------------------------------->
+        <!-- Page Contents for Home page only-->
+        {% if title == 'Welcome' %}
+        <div class="ui inverted vertical masthead center aligned segment"
+             style="padding-top:0px; padding-bottom:0px;">
+            <!-- Fixed Menu -->
+            <div class="ui fluid container" style="background-color:#474747">
+                <div class="ui container">
+                    <div class="ui large secondary inverted pointing menu">
+                        <a class="toc item">
+                            <i class="sidebar icon"></i>
+                        </a>
+                        <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
+                        {% if current_user.is_authenticated %}
+                        {% if current_user.is_admin %}
+                        <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
+                        <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
+                        <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
+                        <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
+                        {% else %}
+                        <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
+                        {% endif %}
+                        <div class="right menu">
+                            <div class="item">
+                                <a><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
+                            </div>
+                            <div class="item">
+                                <a class="ui inverted button" href="{{ url_for('auth.logout') }}">Logout</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="right menu">
+                            <div class="item">
+                                <a href="{{ url_for('auth.login') }}" class="ui inverted button">Login</a>
+                            </div>
+                            <div class="item">
+                                <a href="{{ url_for('auth.register') }}" class="ui inverted button">Register</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Imagine-a-Company
+                </h1>
+                <h2>Do whatever you want when you want to.</h2>
+                <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+            </div>
+        </div>
+        {% block home_body %}
         {% endblock %}
 
-
-        <div id="footer" class="ui inverted vertical footer segment">
+        {% else %}
+        <!-- Page Contents for NON Home pages-->
+        <!-- Fixed Menu -->
+        <div class="ui fluid container" style="background-color:#474747">
             <div class="ui container">
-                <div class="ui stackable inverted divided equal height stackable grid">
-                    <div class="four wide column">
-                        <h4 class="ui inverted header">About</h4>
-                        <div class="ui inverted link list">
-                            <a href="#" class="item">Sitemap</a>
-                            <a href="#" class="item">Contact Us</a>
-                            <a href="#" class="item">Religious Ceremonies</a>
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
+                    {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin %}
+                    <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
+                    <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
+                    <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
+                    <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
+                    {% else %}
+                    <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
+                    {% endif %}
+                    <div class="right menu">
+                        <div class="item">
+                            <a><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
+                        </div>
+                        <div class="item">
+                            <a class="ui inverted button" href="{{ url_for('auth.logout') }}">Logout</a>
                         </div>
                     </div>
-                    <div class="four wide column">
-                        <h4 class="ui inverted header">Services</h4>
-                        <div class="ui inverted link list">
-                            <a href="#" class="item">Banana Pre-Order</a>
-                            <a href="#" class="item">DNA FAQ</a>
-                            <a href="#" class="item">How To Access</a>
+                    {% else %}
+                    <div class="right menu">
+                        <div class="item">
+                            <a href="{{ url_for('auth.login') }}" class="ui inverted button">Login</a>
+                        </div>
+                        <div class="item">
+                            <a href="{{ url_for('auth.register') }}" class="ui inverted button">Register</a>
                         </div>
                     </div>
-                    <div class="five wide column">
-                        <h4 class="ui inverted header">Footer Header</h4>
-                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% block body %}
+        {% endblock %}
+    </div>
+    {% endif %}
+
+    <!-------------------------------------- End of Page Contents Section --------------------------------------------->
+
+    <!-- Footer Section -->
+    <div id="footer" class="ui inverted vertical footer segment">
+        <div class="ui container">
+            <div class="ui stackable inverted divided equal height stackable grid">
+                <div class="four wide column">
+                    <h4 class="ui inverted header">About</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Sitemap</a>
+                        <a href="#" class="item">Contact Us</a>
                     </div>
+                </div>
+                <div class="four wide column">
+                    <h4 class="ui inverted header">Services</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Banana Pre-Order</a>
+                        <a href="#" class="item">DNA FAQ</a>
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <h4 class="ui inverted header">Footer Header</h4>
+                    <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
                 </div>
             </div>
         </div>
     </div>
-
-    {% block javascript %}
-    {% endblock %}
+</div>
+{% block javascript %}
+{% endblock %}
 </body>
-
 </html>

@@ -4,8 +4,8 @@
 
 {% block title %}Register{% endblock %}
 {% block head %}
-  <!-- Site Properties -->
-  <style type="text/css">
+<!-- Site Properties -->
+<style type="text/css">
     body {
       background-color: rgb(255, 255, 255);
       font-family: 'Mandali';
@@ -26,8 +26,12 @@
       text-align: left;
     }
 
+    /* Remove annoying extra border at bottom of form box */
+.ui.stacked.segment::after{
+  border:none;
+}
 
-  </style>
+</style>
 <script type="text/javascript">
 $(function() {
 	$('.ui.dropdown').dropdown();
@@ -116,87 +120,92 @@ $(function() {
   ;
 
 
+
 </script>
 {% endblock %}
 {% block body %}
 <div class="ui middle aligned center aligned grid" style="background-color:white; margin-top:0px;">
-  <div class="eight wide column" style="margin-top:4em; margin-bottom:8em">
-    <h2 class="ui image header" style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
-  <img width="250px" height="250px" class="ui fluid image" src="{{ url_for('static', filename='img/logo/logo.png') }}">
-      <div class="content">
-        Register for an account
-      </div>
-    </h2>
-    <form class="ui large form" method="post">
-      {{ form.hidden_tag() }}
-      <div class="ui stacked segment">
-        <div class="field">
-          <label>First name</label>
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            {{ form.first_name(placeholder="First name") }}
-          </div>
-        </div>
-        <div class="field">
-          <label>Last name</label>
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            {{ form.last_name(placeholder="Last name") }}
-          </div>
-        </div>
-        <div class="field">
-          <label>Email address</label>
-          <div class="ui left icon input">
-            <i class="mail icon"></i>
-            {{ form.email(placeholder="Email address") }}
-          </div>
-        </div>
-        
-        <div class="field">
-          <label>Password</label>
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            {{ form.password(placeholder="Password") }}
-          </div>
-        </div>
-        <div class="field">
-          <label>Confirm password</label>
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            {{ form.confirm_password(placeholder="Confirm password") }}
-          </div>
-        </div>
-        <div class="field">
-          <label>Type of user</label>
-          <div class="ui selection dropdown">
-            <input name="user_type" type="hidden">
-            <i class="dropdown icon"></i>
-            <div class="default text">Please select...</div>
-            <div class="menu">
-              <div class="item" data-value="Bioinformatics User">Bioinformatics User</div>
-              <div class="item" data-value="Standard User">Standard User</div>
+    <div class="eight wide column" style="margin-top:4em; margin-bottom:8em">
+        <h2 class="ui image header" style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
+            <img width="250px" height="250px" class="ui fluid image"
+                 src="{{ url_for('static', filename='img/logo/logo.png') }}">
+            <div class="content">
+                Register for an account
             </div>
-          </div>
-        </div>
+        </h2>
+        <form class="ui large form" method="post">
+            {{ form.hidden_tag() }}
+            <div class="ui stacked segment">
+                <div class="field">
+                    <label>First name</label>
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        {{ form.first_name(placeholder="First name") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Last name</label>
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        {{ form.last_name(placeholder="Last name") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Email address</label>
+                    <div class="ui left icon input">
+                        <i class="mail icon"></i>
+                        {{ form.email(placeholder="Email address") }}
+                    </div>
+                </div>
 
-        <button class="ui fluid large submit button" type="submit" style="background-color:#74D7D7; font-family: 'Mandali'">Register</button>
-      </div>
+                <div class="field">
+                    <label>Password</label>
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        {{ form.password(placeholder="Password") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Confirm password</label>
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        {{ form.confirm_password(placeholder="Confirm password") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Type of user</label>
+                    <div class="ui selection dropdown">
+                        <input name="user_type" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Please select...</div>
+                        <div class="menu">
+                            <div class="item" data-value="Bioinformatics User">Bioinformatics User</div>
+                            <div class="item" data-value="Standard User">Standard User</div>
+                        </div>
+                    </div>
+                </div>
 
-      <div id='login-flash-div' class="ui error message">{% with messages = get_flashed_messages() %}
-        {% if messages %}
-      <script type="text/javascript">
+                <button class="ui fluid large submit button" type="submit"
+                        style="background-color:#74D7D7; font-family: 'Mandali'">Register
+                </button>
+            </div>
+
+            <div id='login-flash-div' class="ui error message">{% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <script type="text/javascript">
         document.getElementById("login-flash-div").className += " visible";
-        </script>
-        <ul class="list" style="margin:auto">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-      {% endwith %}
-      </div>
-    </form>
-  </div>
+
+                </script>
+                <ul class="list" style="margin:auto">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

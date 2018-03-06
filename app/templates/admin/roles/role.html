@@ -12,10 +12,6 @@
 
 {% block head %}
 <!-- Site Properties -->
-<!--<script src="{{ url_for('static', filename='login-page/jquery.js') }}"></script>-->
-<!--<script src="{{ url_for('static', filename='login-page/form.js') }}"></script>-->
-<!--<script src="{{ url_for('static', filename='login-page/transition.js') }}"></script>-->
-
 <style type="text/css">
     body, {
       background-color: rgb(255, 255, 255);
@@ -35,6 +31,12 @@
     .ui.large.form{
     font-size: 1em;
     }
+
+    /* Remove annoying extra border at bottom of form box */
+.ui.stacked.segment::after{
+  border:none;
+}
+
 
 </style>
 <script>

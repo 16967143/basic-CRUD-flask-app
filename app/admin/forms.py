@@ -29,7 +29,7 @@ class EmployeeAssignForm(FlaskForm):
     Form for admin to assign departments and roles to employees
     """
     department = QuerySelectField(query_factory=lambda: Department.query.all(),
-                                  get_label="name", get_pk=lambda x: 'id')  # important! prevents "ValueError: too many values to unpack (expected 2)"
+                                  get_label=lambda x: x.name, get_pk=lambda x: x.id)  # important! prevents "ValueError: too many values to unpack (expected 2)"
     role = QuerySelectField(query_factory=lambda: Role.query.all(),
-                            get_label="name", get_pk=lambda x: 'id')
+                            get_label=lambda x: x.name, get_pk=lambda x: x.id)
     submit = SubmitField('Submit')

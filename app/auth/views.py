@@ -37,16 +37,13 @@ def register():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print(str(form.email))
     if form.validate_on_submit():
-        print("form is valid!")
 
         # check whether employee exists in the database and whether
         # the password entered matches the password in the database
         employee = Employee.query.filter_by(email=form.email.data).first()
         if employee is not None and employee.verify_password(
                 form.password.data):
-            print("all details correct!")
             # log employee in
             login_user(employee)
 
@@ -58,11 +55,9 @@ def login():
 
         # when login details are incorrect
         else:
-            print("printing invalid email or pw")
             flash('Invalid email or password', 'error')
 
     # load login template
-    print("final before retrn")
     return render_template('auth/login.html', form=form, title='Login')
 
 @auth.route('/logout')

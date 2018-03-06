@@ -5,10 +5,6 @@
 
 {% block head %}
 <!-- Site Properties -->
-<!--<script src="{{ url_for('static', filename='login-page/jquery.js') }}"></script>-->
-<!--<script src="{{ url_for('static', filename='login-page/form.js') }}"></script>-->
-<!--<script src="{{ url_for('static', filename='login-page/transition.js') }}"></script>-->
-
 <style type="text/css">
     body, {
       background-color: rgb(255, 255, 255);
@@ -28,6 +24,11 @@
     .ui.large.form{
     font-size: 1em;
     }
+/* Remove annoying extra border at bottom of form box */
+.ui.stacked.segment::after{
+  border:none;
+}
+
 
 
 </style>
@@ -36,6 +37,7 @@
     $(function() {
 	$('.ui.dropdown').dropdown();
 });
+
 
 
 </script>
@@ -70,36 +72,16 @@
             <div class="twelve wide left aligned column">
                 <form class="ui large form" method="post">
                     {{ form.hidden_tag() }}
-                    <div class="ui stacked segment">
 
+                    <div class="ui stacked segment">
                         <div class="field">
                             <label>Department</label>
-                            <div class="ui selection dropdown">
-                                <input name="department" type="hidden">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Please select a department</div>
-                                <div class="menu">
-                                    {% if employee.department %}
-                                    {% for department in employee.department %}
-                                    <div class="item" data-value="{{ department }}">{{ department }}</div>
-                                    {% endfor %}
-                                    {% endif %}
-                                </div>
-                            </div>
+                            {{ form.department(class="ui fluid dropdown", default_text="Please select a department") }}
                         </div>
 
                         <div class="field">
                             <label>Role</label>
-                            <div class="ui selection dropdown">
-                                <input name="role" type="hidden">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Please select a role</div>
-                                <div class="menu">
-                                    {% if employee.role %}
-                                    <div class="item" data-value="{{ role }}">{{ employee.role }}</div>
-                                    {% endif %}
-                                </div>
-                            </div>
+                            {{ form.role(class="ui fluid dropdown", default_text="Please select a role") }}
                         </div>
 
 
