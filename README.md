@@ -1,8 +1,16 @@
 # Basic CRUD flask app for managing employees
-Basic CRUD (Create, Read, Update, Delete) employee management web app built in Python & Flask, **loosely** based off the [scotch.io tutorial]( https://scotch.io/tutorials/build-a-crud-web-app-with-python-and-flask-part-one).
+A basic CRUD (Create, Read, Update, Delete) employee management Flask app **loosely** based off the [scotch.io tutorial]( https://scotch.io/tutorials/build-a-crud-web-app-with-python-and-flask-part-one).
+
+**View of the homepage**
 
 ![home page screenshot](screenshots/home-page-screenshot.png)
+
+**Look and feel of the site**
+
 ![home page screenshot2](screenshots/home-page-screenshot2.png)
+
+**View of the admin area for managing employees**
+
 ![employees screenshot](screenshots/employees-screenshot.png)
 
 ## Stack information
@@ -98,8 +106,10 @@ Run the app:
 
     flask run
     
-The app can now be accessed by visiting [127.0.0.1:5000](127.0.0.1:5000) in your browser. It is recommended to use Firefox
+The app can now be accessed by visiting [127.0.0.1:5000](http://127.0.0.1:5000/) in your browser. It is recommended to use Firefox
 as the app has not yet been optimised for Chrome (and IE, if that wasn't already assumed). 
+
+<hr>
 
 ### Further development notes
 
@@ -137,15 +147,15 @@ ways of doing things, but will at least provide an easy entry into their set up 
 may be useful for new users and save them from having to sift through the web of information out there and many hours of 
 trial and error.
 
-To start an existing database:
+To start a Postgres database daemon:
 
     pgctl -D [path to where the database files are stored] -l logfile.log start
     
-To check if an instance of Postgres is running:
+To check if a Postgres daemon is running:
     
     ps  # should list a process called "postgres"
     
-To start an interactive postgres shell and run commands against the db:
+To start an interactive Postgres shell and run commands against the db:
 
     psql [Name of the database]
     
