@@ -15,17 +15,18 @@ def register():
     Add an employee to the database through the registration form
     """
     form = RegistrationForm()
+
     if form.validate_on_submit():
         employee = Employee(email=form.email.data,
-                            username=form.username.data,
                             first_name=form.first_name.data,
                             last_name=form.last_name.data,
-                            password=form.password.data)
+                            password=form.password.data,
+                            user_type=form.user_type.data)
 
         # add employee to the database
         db.session.add(employee)
         db.session.commit()
-        flash('You have successfully registered! You may now login.')
+        flash('You have successfully registered! You may now login.', 'success')
 
         # redirect to the login page
         return redirect(url_for('auth.login'))
@@ -54,7 +55,7 @@ def login():
 
         # when login details are incorrect
         else:
-            flash('Invalid email or password.')
+            flash('Invalid email or password', 'error')
 
     # load login template
     return render_template('auth/login.html', form=form, title='Login')

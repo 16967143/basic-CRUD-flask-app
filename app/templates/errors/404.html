@@ -2,22 +2,44 @@
 
 {% extends "base.html" %}
 {% block title %}Page Not Found{% endblock %}
+{% block head %}
+<!-- Site Properties -->
+
+<!--<script src="{{ url_for('static', filename='login-page/jquery.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/form.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/transition.js') }}"></script>-->
+
+<style type="text/css">
+    body {
+      background-color: rgb(255, 255, 255);
+      font-family: 'Mandali';
+    }
+
+    button {
+       font-family: 'Mandali';
+
+}
+
+    body > .grid {
+      height: 100%;
+    }
+
+    .ui.large.form{
+    font-size: 1em;
+    }
+
+
+</style>
+{% endblock %}
+
 {% block body %}
-<div class="content-section">
-  <div class="outer">
-    <div class="middle">
-      <div class="inner">
-        <div style="text-align: center">
-            <h1> 404 Error </h1>
-            <h3> The page you're looking for doesn't exist. </h3>
-            <hr class="intro-divider">
-            <a href="{{ url_for('home.homepage') }}" class="btn btn-default btn-lg">
-                <i class="fa fa-home"></i>
-                Home
-            </a>
-        </div>
-      </div>
+<div class="ui middle aligned center aligned grid"  style="background-color:white; margin-top:0px;">
+    <div class="six wide column" style="margin-top:2em; margin-bottom:5em">
+        <h2 class="ui image header" style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
+        404 Error
+        </h2>
+        <p style="color:black">The page you're looking for doesn't exist.</p>
     </div>
-  </div>
 </div>
+
 {% endblock %}

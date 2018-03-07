@@ -27,3 +27,11 @@ def admin_dashboard():
         abort(403)
 
     return render_template('home/admin_dashboard.html', title="Dashboard")
+
+@home.route('/test2')
+def test2():
+    """
+    [temporary] Render the test homepage template on the /test2 route
+    """
+    return render_template('home/index-attempt-to-fix-footer.html', title="Test2")
+

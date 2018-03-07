@@ -49,10 +49,10 @@ def add_department():
             # add department to the database
             db.session.add(department)
             db.session.commit()
-            flash('You have successfully added a new department.')
+            flash('You have successfully added a new department ', 'success')
         except:
             # in case department name already exists
-            flash('Error: department name already exists.')
+            flash('Department name already exists', 'error')
 
         # redirect to departments page
         return redirect(url_for('admin.list_departments'))
@@ -78,7 +78,7 @@ def edit_department(id):
         department.name = form.name.data
         department.description = form.description.data
         db.session.commit()
-        flash('You have successfully edited the department.')
+        flash('You have successfully edited the department', 'success')
 
         # redirect to the departments page
         return redirect(url_for('admin.list_departments'))
@@ -100,12 +100,12 @@ def delete_department(id):
     department = Department.query.get_or_404(id)
     db.session.delete(department)
     db.session.commit()
-    flash('You have successfully deleted the department.')
+    flash('You have successfully deleted the department', 'success')
 
     # redirect to the departments page
     return redirect(url_for('admin.list_departments'))
 
-    return render_template(title="Delete Department")
+    return render_template(title="Delete Department")  # this return statement is redundant
 
 # Role Views
 
@@ -139,10 +139,10 @@ def add_role():
             # add role to the database
             db.session.add(role)
             db.session.commit()
-            flash('You have successfully added a new role.')
+            flash('You have successfully added a new role', 'success')
         except:
             # in case role name already exists
-            flash('Error: role name already exists.')
+            flash('Role name already exists', 'error')
 
         # redirect to the roles page
         return redirect(url_for('admin.list_roles'))
@@ -168,7 +168,7 @@ def edit_role(id):
         role.description = form.description.data
         db.session.add(role)
         db.session.commit()
-        flash('You have successfully edited the role.')
+        flash('You have successfully edited the role', 'success')
 
         # redirect to the roles page
         return redirect(url_for('admin.list_roles'))
@@ -189,12 +189,12 @@ def delete_role(id):
     role = Role.query.get_or_404(id)
     db.session.delete(role)
     db.session.commit()
-    flash('You have successfully deleted the role.')
+    flash('You have successfully deleted the role', 'success')
 
     # redirect to the roles page
     return redirect(url_for('admin.list_roles'))
 
-    return render_template(title="Delete Role")
+    return render_template(title="Delete Role")  # this return statement is redundant
 
 # Employee Views
 
@@ -231,7 +231,7 @@ def assign_employee(id):
         employee.role = form.role.data
         db.session.add(employee)
         db.session.commit()
-        flash('You have successfully assigned a department and role.')
+        flash('You have successfully assigned a department and role', 'success')
 
         # redirect to the roles page
         return redirect(url_for('admin.list_employees'))

@@ -1,75 +1,430 @@
-<!-- app/templates/base.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{ title }} | Project Dream Team</title>
+    <title>{{ title }} | base</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- Standard Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
     <!-- In the head tag, include link to Font Awesome CSS so we can use icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Slab"/>
+    <link href='https://fonts.googleapis.com/css?family=Mandali' rel='stylesheet'>
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+    <!-- Include semantic UI -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='semantic/semantic.css') }}">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script src="{{ url_for('static', filename='semantic/semantic.js') }}"></script>
+
+
+    <style type="text/css">
+    .hidden.menu {
+      display: none;
+    }
+
+    .masthead.segment {
+      min-height: 700px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+
+    .footer.segment {
+      padding: 1em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+
+/*My own additions for the navbar*/
+    .ui.grid{
+    margin-top:0px;
+    margin-bottom:0px;
+    }
+
+    .ui.secondary.inverted.pointing.menu .active.item{
+      border-color: #74D7D7;
+    }
+
+    .ui.inverted.segment, .ui.primary.inverted.segment{
+      background-color: #474747;
+    }
+
+    .ui.secondary.inverted.pointing.menu{
+      border: none;
+    }
+
+    .ui.menu{
+      font-family: Mandali;
+    }
+    .ui.menu .active.item{
+      background-color: rgba(255,255,255,1)
+    }
+
+    a.active.item::before{
+      width:0px;
+    }
+    .ui.menu .item::before{
+      width:0px;
+    }
+    .ui.primary.button{
+      background-color: #74D7D7;
+    }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 0px;  /* Note: this was 0 0 100px before I changed it; might be useful if faced with future footer positioning issues */
+    /* bottom = footer height */
+    padding: 25px;
+}
+
+#header-and-body{
+    margin: 0 0 10em;
+    /* bottom = footer height */
+    padding-bottom: 25px;
+}
+
+#footer {
+    background-color: #474747;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 2em;
+    height: 10em;
+    width: 100%;
+}
+
+/*My own additions to get the footer to stick to bottom and not disrupt content*/
+    @media only screen and (max-width: 700px) {
+    #header-and-body{
+        margin: 0 0 30em;
+        /* bottom = footer height */
+        padding-bottom: 25px;
+    }
+
+    #footer {
+        background-color: #474747;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 2em;
+        height: 30em;
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+    </style>
+
+    <script>
+  $(document)
+    .ready(function() {
+
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        })
+      ;
+
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+
+    })
+  ;
+
+
+
+
+
+
+
+
+
+    </script>
+    {% block head %}
+    {% endblock %}
+
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-          <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand topnav" href="{{ url_for('home.homepage') }}">Project Dream Team</a>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!-- Modify nav bar menu -->
-            <ul class="nav navbar-nav navbar-right">
+
+<div class="pusher">
+    <div id="header-and-body">
+        <!----------------------------------- Navbar and mobile nav Section ------------------------------------------->
+        <!-- Following Menu -->
+        <div id="following-menu" class="ui large top fixed hidden menu">
+            <div class="ui container">
+                <img class="ui middle aligned tiny image"
+                     src="{{ url_for('static', filename='img/logo/logo-basic-200-x-200.png') }}">
+                <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
+
                 {% if current_user.is_authenticated %}
-                  {% if current_user.is_admin %}
-                    <li><a href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ url_for('admin.list_departments') }}">Departments</a></li>
-                    <li><a href="{{ url_for('admin.list_roles') }}">Roles</a></li>
-                    <li><a href="{{ url_for('admin.list_employees') }}">Employees</a></li>
-                  {% else %}
-                    <li><a href="{{ url_for('home.dashboard') }}">Dashboard</a></li>
-                  {% endif %}
-                  <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-                  <li><a><i class="fa fa-user"></i>  Hi, {{ current_user.username }}!</a></li>
+                {% if current_user.is_admin %}
+                <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
+                <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
+                <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
+                <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
                 {% else %}
-                  <li><a href="{{ url_for('home.homepage') }}">Home</a></li>
-                  <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-                  <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
                 {% endif %}
-            </ul>
-          </div>
+                <div class="right menu">
+                    <div class="item">
+                        <a><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
+                    </div>
+                    <div class="item">
+                        <a class="ui button" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="right menu">
+                    <div class="item">
+                        <a href="{{ url_for('auth.login') }}" class="ui primary inverted button">Login</a>
+                    </div>
+                    <div class="item">
+                        <a href="{{ url_for('auth.register') }}" class="ui primary inverted button">Register</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
         </div>
-    </nav>
-    <div class="wrapper">
-      {% block body %}
-      {% endblock %}
-      <div class="push"></div>
-    </div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Modify footer menu -->
-                    <ul class="list-inline">
-                        <li><a href="{{ url_for('home.homepage') }}">Home</a></li>
-                        <li class="footer-menu-divider">⋅</li>
+
+        <!-- Sidebar Menu -->
+        <div class="ui vertical inverted sidebar menu">
+            <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
+            {% if current_user.is_authenticated %}
+            {% if current_user.is_admin %}
+            <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
+            <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
+            <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
+            <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
+            {% else %}
+            <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
+            {% endif %}
+            <a class="item" href="{{ url_for('auth.logout') }}">Logout</a>
+            <a class="item"><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
+            {% else %}
+            <a class="item" href="{{ url_for('auth.register') }}">Register</a>
+            <a class="item" href="{{ url_for('auth.login') }}">Login</a>
+            {% endif %}
+        </div>
+        <!--------------------------------- End of Navbar and mobile nav Section -------------------------------------->
+
+        <!--------------------------------------- Page Contents Section ----------------------------------------------->
+        <!-- Page Contents for Home page only-->
+        {% if title == 'Welcome' %}
+        <div class="ui inverted vertical masthead center aligned segment"
+             style="padding-top:0px; padding-bottom:0px;">
+            <!-- Fixed Menu -->
+            <div class="ui fluid container" style="background-color:#474747">
+                <div class="ui container">
+                    <div class="ui large secondary inverted pointing menu">
+                        <a class="toc item">
+                            <i class="sidebar icon"></i>
+                        </a>
+                        <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
                         {% if current_user.is_authenticated %}
-                          <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                        {% if current_user.is_admin %}
+                        <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
+                        <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
+                        <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
+                        <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
                         {% else %}
-                          <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-                          <li class="footer-menu-divider">⋅</li>
-                          <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                        <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
                         {% endif %}
-                    </ul>
-                    <p class="copyright text-muted small">Copyright © 2016. All Rights Reserved</p>
+                        <div class="right menu">
+                            <div class="item">
+                                <a><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
+                            </div>
+                            <div class="item">
+                                <a class="ui inverted button" href="{{ url_for('auth.logout') }}">Logout</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="right menu">
+                            <div class="item">
+                                <a href="{{ url_for('auth.login') }}" class="ui inverted button">Login</a>
+                            </div>
+                            <div class="item">
+                                <a href="{{ url_for('auth.register') }}" class="ui inverted button">Register</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Imagine-a-Company
+                </h1>
+                <h2>Do whatever you want when you want to.</h2>
+                <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+            </div>
+        </div>
+        {% block home_body %}
+        {% endblock %}
+
+        {% else %}
+        <!-- Page Contents for NON Home pages-->
+        <!-- Fixed Menu -->
+        <div class="ui fluid container" style="background-color:#474747">
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="active item" href="{{ url_for('home.homepage') }}">Home</a>
+                    {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin %}
+                    <a class="item" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a>
+                    <a class="item" href="{{ url_for('admin.list_departments') }}">Departments</a>
+                    <a class="item" href="{{ url_for('admin.list_roles') }}">Roles</a>
+                    <a class="item" href="{{ url_for('admin.list_employees') }}">Employees</a>
+                    {% else %}
+                    <a class="item" href="{{ url_for('home.dashboard') }}">Dashboard</a>
+                    {% endif %}
+                    <div class="right menu">
+                        <div class="item">
+                            <a><i class="fa fa-user"></i> Hi, {{ current_user.first_name }}!</a>
+                        </div>
+                        <div class="item">
+                            <a class="ui inverted button" href="{{ url_for('auth.logout') }}">Logout</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="right menu">
+                        <div class="item">
+                            <a href="{{ url_for('auth.login') }}" class="ui inverted button">Login</a>
+                        </div>
+                        <div class="item">
+                            <a href="{{ url_for('auth.register') }}" class="ui inverted button">Register</a>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    </footer>
+        {% block body %}
+        {% endblock %}
+    </div>
+    {% endif %}
+
+    <!-------------------------------------- End of Page Contents Section --------------------------------------------->
+
+    <!-- Footer Section -->
+    <div id="footer" class="ui inverted vertical footer segment">
+        <div class="ui container">
+            <div class="ui stackable inverted divided equal height stackable grid">
+                <div class="four wide column">
+                    <h4 class="ui inverted header">About</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Sitemap</a>
+                        <a href="#" class="item">Contact Us</a>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <h4 class="ui inverted header">Services</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Banana Pre-Order</a>
+                        <a href="#" class="item">DNA FAQ</a>
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <h4 class="ui inverted header">Footer Header</h4>
+                    <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block javascript %}
+{% endblock %}
 </body>
 </html>

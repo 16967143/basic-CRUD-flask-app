@@ -1,18 +1,147 @@
 <!-- app/templates/auth/login.html -->
 
-{% import "bootstrap/utils.html" as utils %}
-{% import "bootstrap/wtf.html" as wtf %}
+
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
+
+{% block head %}
+<!-- Site Properties -->
+
+<!--<script src="{{ url_for('static', filename='login-page/jquery.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/form.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/transition.js') }}"></script>-->
+
+<style type="text/css">
+    body {
+      background-color: rgb(255, 255, 255);
+      font-family: 'Mandali';
+    }
+
+    button {
+       font-family: 'Mandali';
+
+}
+
+    body > .grid {
+      height: 100%;
+    }
+
+    .ui.large.form{
+    font-size: 1em;
+    }
+
+/* Remove annoying extra border at bottom of form box */
+.ui.stacked.segment::after{
+  border:none;
+}
+
+
+</style>
+
+<script>
+  $(document)
+    .ready(function() {
+      $('.ui.form')
+        .form({
+          fields: {
+            email: {
+              identifier  : 'email',
+              rules: [
+                {
+                  type   : 'email',
+                  prompt : 'Please enter a valid email'
+                }
+              ]
+            },
+            password: {
+              identifier  : 'password',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your password'
+                },
+                {
+                  type   : 'length[5]',
+                  prompt : 'Your password must be at least 5 characters'
+                }
+              ]
+            }
+          },
+          on: 'blur',
+          inline: false
+        })
+      ;
+    })
+  ;
+
+
+</script>
+
+{% endblock %}
+
 {% block body %}
-<div class="content-section">
-  <br/>
-  {{ utils.flashed_messages() }}
-  <br/>
-  <div class="center">
-    <h1>Login to your account</h1>
-    <br/>
-    {{ wtf.quick_form(form) }}
-  </div>
+
+
+<div id="body" class="ui middle aligned center aligned grid" style="background-color:white; margin-top:0px;">
+    <div class="six wide column" style="margin-top:4em; margin-bottom:8em">
+        <h2 class="ui image header" style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
+
+            <img width="250px" height="250px" class="ui fluid image"
+                 src="{{ url_for('static', filename='img/logo/logo.png') }}">
+            <div class="content">
+                Log-in to your account
+            </div>
+        </h2>
+        <form class="ui large form" method="post">
+            {{ form.hidden_tag() }}
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        {{ form.email(placeholder="Email address") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        {{ form.password(placeholder="Password") }}
+                    </div>
+                </div>
+                <button class="ui fluid large submit button" type="submit"
+                        style="background-color:#74D7D7; font-family: 'Mandali'">Login
+                </button>
+            </div>
+            <div class="ui error message"></div>
+        </form>
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+        <div id="login-error" class="ui error message">
+            <ul class="list" style="margin:auto">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+        <div id="login-success" class="ui success message">
+            <ul class="list" style="margin:auto">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="ui message">
+            New to this site? <a href="{{ url_for('auth.register') }}">Register</a>
+        </div>
+
+    </div>
 </div>
+
 {% endblock %}

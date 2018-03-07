@@ -1,30 +1,147 @@
 <!-- app/templates/admin/departments/department.html -->
 
-{% import "bootstrap/wtf.html" as wtf %}
 {% extends "base.html" %}
 {% block title %}
-    {% if add_department %}
-        Add Department
-    {% else %}
-        Edit Department
-    {% endif %}
+{% if add_department %}
+Add Department
+{% else %}
+Edit Department
+{% endif %}
+{% endblock %}
+
+
+{% block head %}
+<!-- Site Properties -->
+<!--<script src="{{ url_for('static', filename='login-page/jquery.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/form.js') }}"></script>-->
+<!--<script src="{{ url_for('static', filename='login-page/transition.js') }}"></script>-->
+
+<style type="text/css">
+    body, {
+      background-color: rgb(255, 255, 255);
+      font-family: 'Mandali';
+      color: #474747;
+    }
+
+    button {
+       font-family: 'Mandali';
+
+}
+
+    body > .grid {
+      height: 100%;
+    }
+
+    .ui.large.form{
+    font-size: 1em;
+    }
+
+    /* Remove annoying extra border at bottom of form box */
+.ui.stacked.segment::after{
+  border:none;
+}
+
+
+</style>
+<script>
+      $(document)
+    .ready(function() {
+      $('.ui.form')
+        .form({
+          fields: {
+            name: {
+              identifier  : 'name',
+              rules: [
+                {
+                  type   : 'length[2]',
+                  prompt : 'Department name should be at least 2 characters'
+                },
+              ]
+            },
+            description: {
+              identifier  : 'description',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter a brief description for the department'
+                },
+              ]
+            }
+          },
+          on: 'blur',
+          inline: false
+        })
+      ;
+    })
+  ;
+
+</script>
 {% endblock %}
 {% block body %}
-<div class="content-section">
- <div class="outer">
-    <div class="middle">
-      <div class="inner">
-        <div class="center">
-            {% if add_department %}
-                <h1>Add Department</h1>
-            {% else %}
-                <h1>Edit Department</h1>
+
+<div class="ui middle aligned center aligned grid" style="background-color:white; margin-top:0px;">
+    <div class="twelve wide column" style="margin-top:4em; margin-bottom:8em">
+        <div class="ui center aligned grid">
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="list" style="margin:auto">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
             {% endif %}
-            <br/>
-            {{ wtf.quick_form(form) }}
+            {% endwith %}
+
+            <div class="twelve wide column">
+                {% if add_department %}
+                <h2 class="ui header"
+                    style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
+                    Add department
+                </h2>
+                {% else %}
+                <h2 class="ui header"
+                    style="color: #74D7D7; font-family: Josefin Slab; font-weight:400; font-size:2.5em">
+                    Edit department
+                </h2>
+                {% endif %}
+            </div>
+
+            <div class="twelve wide left aligned column">
+                <form class="ui large form" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <label>Department Name</label>
+                            <div class="ui left icon input">
+                                <i class="building icon"></i>
+                                {{ form.name(placeholder="Department Name") }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Department Description</label>
+
+                            <div class="ui left icon input">
+                                <i class="info circle icon"></i>
+                                {{ form.description(placeholder="Description") }}
+                            </div>
+                        </div>
+                        <button class="ui fluid medium submit button" type="submit"
+                                style="background-color:#74D7D7; font-family: 'Mandali'">
+                            {% if add_department %}
+                            Add Department
+                            {% else %}
+                            Edit Department
+                            {% endif %}
+                        </button>
+                    </div>
+                    <div class="ui error message"></div>
+                </form>
+            </div>
+
+
         </div>
-      </div>
     </div>
-  </div>
 </div>
+
 {% endblock %}
